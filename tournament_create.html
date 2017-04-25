@@ -1,0 +1,494 @@
+<!doctype html>
+<html>
+	<head>
+        <title>Dota 2 - League Signup</title>
+
+		<link rel="shortcut icon" href="http://dota2.com/favicon.ico" />
+
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-language" content="bg" />
+		<meta name="resource-type" content="document" />
+		<meta name="distribution" content="global" />
+
+		<link rel="stylesheet" type="text/css" href="codes/style.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300&amp;subset=latin,cyrillic-ext" media="all" />
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="codes/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var strPrevTeamName = "-1";
+				var bUnsavedChanges = false;
+
+				$( "#start_date" ).datepicker({
+					dateFormat: "yy-mm-dd",
+					defaultDate: "+2w",
+					numberOfMonths: 2,
+					minDate: "+2w",
+					onClose: function( selectedDate ) {
+						$( '#end_date' ).datepicker( "option", "minDate", selectedDate )
+					}});
+				$( "#end_date" ).datepicker({
+					dateFormat: "yy-mm-dd",
+					defaultDate: "+2w",
+					numberOfMonths: 2,
+					onClose: function( selectedDate ) {
+						$( '#start_date' ).datepicker( "option", "maxDate", selectedDate )
+					}});
+				
+				$('#autocomplete').autocomplete({
+					source: function( request, response )
+					{
+						if( request.term != "" )
+						{
+							var searchBy = '';
+							if( $( '#search_team_by_id' ).is( ':checked' ) )
+							{
+								searchBy = 'team_id';
+							}
+							else if( $( '#search_team_by_name' ).is( ':checked' ) )
+							{
+								searchBy = 'team_name';
+							}
+							$.ajax({
+								url: 'http://www.dota2.com/leagues/checkteamname/',
+								data: { team_name: request.term, search_by: searchBy },
+								success: function( data )
+								{
+									if( data != 0 )
+									{
+										var teams = JSON.parse( data );
+										response( teams );
+									}
+									else
+									{
+										response( data );
+									}
+								}
+							})
+						}
+						else
+						{
+
+						}
+					},
+					minLength: 1,
+				select: function( event, ui )
+				{
+					if( ui && ui.item && ui.item.team_id && ui.item.team_name )
+					{
+						$( '#autocomplete' ).val( ui.item.team_name );
+						$( '#addTeamButton' ).prop( "disabled", false );
+						$( '#team_id' ).val( ui.item.team_id );
+						if( ui.item.team_logo.data && ui.item.team_logo.data.url )
+						{
+							$( '#team_img' ).val( ui.item.team_logo.data.url );
+						}
+						strPrevTeamName = ui.item.team_name;
+						return false;
+					}
+					else
+					{
+						return false;
+					}
+				}}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+					if( item.value != 0 && item.team_logo && item.team_logo.data && item.team_logo.data.url )
+					{
+						return $( "<li style='background: url(" + item.team_logo.data.url + ") no-repeat;'>" )
+							.append( "<a><span style='font-weight: bolder;'>" + item.team_tag + "</span> - " + item.team_name + "<span style='font-size: 10px; color: #FFFFFF;'> Team ID: " + item.team_id + "</span></a>" )
+							.appendTo( ul );
+					}
+					else if( item.value != 0 )
+					{
+						return $( "<li>" )
+							.append( "<a><span style='font-weight: bolder;'>" + item.team_tag + "</span> - " + item.team_name + "<span style='font-size: 10px; color: #FFFFFF;'> Team ID: " + item.team_id + "</span></a>" )
+							.appendTo( ul );
+					}
+					else
+					{
+						if( $( '#search_team_by_id' ).is( ':checked' ) )
+						{
+							return $( "<li>" )
+								.append( "No teams found by that ID." )
+								.appendTo( ul );
+						}
+						else if( $( '#search_team_by_name' ).is( ':checked' ) )
+						{
+							return $( "<li>" )
+								.append( "No teams found by that Name." )
+								.appendTo( ul );
+						}
+
+					}
+				};
+
+				$( '#autocomplete' ).keyup(function()
+				{
+					if( strPrevTeamName != $( '#autocomplete' ).val() )
+					{
+						$( '#addTeamButton' ).prop( "disabled", true );
+					}
+					else
+					{
+						$( '#addTeamButton' ).prop( "disabled", false );
+					}
+				});
+
+				$( ".CreateAccountFormInput input[name='search_team_by']" ).click(function(){
+					$( '#autocomplete' ).val("");
+					strPrevTeamName = "-1";
+					if( this.id == "search_team_by_name" )
+					{
+						$( '#autocomplete' ).removeNumeric();
+					}
+					else
+					{
+						$( '#autocomplete' ).numeric();
+					}
+				});
+
+
+
+				$( "#participants_save" ).click(function () {
+					$( "#team_list option" ).each(function() {
+						$( this ).prop('selected', true);
+					});
+				});
+
+
+				$( '#addTeamButton' ).click(function()
+				{
+					var bTeamAlreadyAdded = false;
+					$( '#team_list option' ).each(function()
+					{
+						if( this.value ==$( '#team_id' ).val() )
+						{
+							bTeamAlreadyAdded = true;
+						}
+					});
+					if( !bTeamAlreadyAdded )
+					{
+						$( '#team_list' ).append( "<option value=" + $( '#team_id' ).val() + " style='background: url(" + $( '#team_img' ).val() + ") no-repeat;' title='Team ID: " + $( '#team_id' ).val() + "'>" + $( '#autocomplete' ).val() + "</option>" );
+						$( '#autocomplete' ).val("");
+						$( '#team_id' ).val("");
+						$( '#team_img' ).val("");
+						$( '#addTeamButton' ).prop( "disabled", true );
+						strPrevTeamName = "-1";
+						bUnsavedChanges = true;
+					}
+					else
+					{
+						alert( "Team already added to list. Unable to add team." );
+					}
+				});
+
+				$( '#autocomplete' ).change(function()
+				{
+
+				});
+
+				$( '#team_list' ).change(function()
+				{
+					$( '#removeTeamButton' ).prop( "disabled", false );
+				});
+
+				$( '#removeTeamButton' ).click(function()
+				{
+					$( '#team_list' ).find( ":selected" ).remove();
+					$( '#removeTeamButton' ).prop( "disabled", true );
+					bUnsavedChanges = true;
+				});
+
+				$('#team_list').resizable({
+					// to set the min height and width
+					minHeight: 100,
+					minWidth: 400,
+					maxWidth: 400,
+					maxHeight: 800
+					// you could also set a maxHeight and maxWidth as well
+				});
+
+				$(window).bind('beforeunload', function(){
+					if( bUnsavedChanges )
+					{
+						return 'There are unsaved changes on the page, are you sure you want to leave?';
+					}
+				});
+			});
+
+			function redirectToCreateAccount()
+			{
+				var createAccountURL = "http://www.dota2.com/";
+				createAccountURL = createAccountURL + "leagues/createaccount/";
+				window.location.href = createAccountURL;
+			}
+
+			var ticket_price = 0;
+			var prize_pool_contribution = 0;
+			function toggleTicketPrice( checkbox )
+			{
+				$( '#suggested_price' ).attr( 'readonly', checkbox.checked );
+				if( checkbox.checked )
+				{
+					ticket_price = $( '#suggested_price' ).val();
+					$( '#suggested_price' ).val( "0" );
+					$( '#suggested_price' ).hide();
+					if( $( '#prize_pool_contribution_amount' ).val() != "0" )
+					{
+						prize_pool_contribution = $( '#prize_pool_contribution_amount' ).val();
+					}
+					$( '#prize_pool_contribution_amount' ).val( "0" );
+					$( '#prize_pool_contribution' ).hide();
+					$( '#prize_pool_contribution_2' ).hide();
+				}
+				else
+				{
+					$( '#suggested_price' ).val( ticket_price );
+					$( '#suggested_price' ).show();
+					$( '#prize_pool_contribution_2' ).show();
+					if( $( '#prize_pool_radio_yes' ).is(':checked') )
+					{
+						$( '#prize_pool_contribution_amount' ).val( prize_pool_contribution );
+						$( '#prize_pool_contribution' ).show();
+					}
+				}
+			}
+
+			function togglePrizePool( checkbox )
+			{
+				if( checkbox )
+				{
+					prize_pool_contribution = $( '#prize_pool_contribution_amount' ).val();
+					$( '#prize_pool_contribution_amount' ).val( "0" );
+					$( '#prize_pool_contribution' ).hide();
+				}
+				else
+				{
+					$( '#prize_pool_contribution_amount' ).val( prize_pool_contribution );
+					$( '#prize_pool_contribution' ).show();
+				}
+			}
+			function updateCompendiumSubmitBtn()
+			{
+				var imagefiles = $('#imagefiles').prop("files");
+				var datafile = $('#compendiumKV').prop("files");
+				var isready = (imagefiles.length > 0 && datafile.length > 0);
+
+				var submitBtn = $('#compendiumSubmitBtn');
+				if ( isready )
+				{
+					submitBtn.removeClass( "btn_disabled" );
+					submitBtn.attr('disabled', false);
+				}
+				else
+				{
+					submitBtn.addClass( "btn_disabled" );
+					submitBtn.attr('disabled', 'disabled');
+				}
+
+				return isready;
+			}
+			function ListSelectedImageFiles()
+			{
+				var files = $('#imagefiles').prop("files");
+				var list = $( '#compendiumImageList' );
+
+				list.empty();
+
+				if ( files.length >= 1 )
+				{
+					// for every file...
+					for ( var i = 0; i < files.length; ++i )
+					{
+						//add to list
+						var li = document.createElement('li');
+						li.textContent = files[i].name;
+						list.append(li);
+					}
+				}
+
+				updateCompendiumSubmitBtn();
+			}
+		</script>
+	</head>
+    <body>
+		<div class="topLine">
+			<div class="navigationLine">
+				<div class="navigationLineLogo">
+					<a href="index_logged.html" title="Dota 2 Leagues"><span>Dota 2 Leagues</span></a>
+				</div>
+				<div class="navigationLineRight">
+					<div class="navigationLineDescLeft">
+						Any questions? Read our <a href="https://support.steampowered.com/kb_article.php?ref=1719-OPHL-1139">FAQ</a> or reach us at <a href="mailto:dotaleagues@valvesoftware.com">dotaleagues@valvesoftware.com</a>.
+					</div>
+					<div class="navigationLineDescRight">
+						<div class="accountName">
+							Dota 2 Official
+						</div>
+						<ul class="userNavigation">
+							<li><a href="index_logged.html" title="Settings" class="settings tooltipNavigation">&nbsp;</a></li>
+							<li><a href="index_logged.html" title="Logout" class="logout tooltipNavigation">&nbsp;</a></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="websiteContent">
+			<div class="contentBoxTabs">
+				<a href="tournament_create.html" class="active">Tournament</a>
+			</div>
+			<div class="contentBoxFull">
+				<div class="contentBox">
+					<div class="pageContent">
+						<p>All fields marked with <span class="req">*</span> are required.</p>
+						<form action="index_logged.html" method="post">
+							<div class="createAccountForm">
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Tournament Name <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input type="text" class="SignInInputText" placeholder="Name of the League" name="league_name" />
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Tier
+									</div>
+									<div class="createAccountFormInput">
+										<input type="radio" name="league_tier" id="league_professional" value="2" /> <label for="league_professional">Professional</label><br />
+										<input type="radio" name="league_tier" id="league_amateur" value="1" checked /> <label for="league_amateur">Amateur</label>
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Associated Region
+									</div>
+									<div class="createAccountFormInput">
+										<select class="selectInput SignInInputText" name="league_location" style="width: 200px;">
+											<option	value="1">North America</option>
+											<option	value="2">South America</option>
+											<option	value="3">Europe</option>
+											<option	value="4">Russia</option>
+											<option	value="5">China</option>
+											<option	value="6">Southeast Asia</option>
+											<option	value="0">Not Set</option>
+										</select>
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Official Tournament Website URL <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input type="text" class="SignInInputText" placeholder="3rd party league website URL" name="league_url" />
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Public Tournament Description <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<textarea rows="7" cols="47" class="createAccountTextArea" name="league_description" placeholder="This is what users will see on your tournament page"></textarea>
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Notes <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<textarea rows="7" cols="47" class="createAccountTextArea" name="league_notes" placeholder="Tell us about your league. Provide references, external links, news posts, and other details. This information is not public."></textarea>
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Tournament Workshop URL <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input type="text" class="SignInInputText" placeholder="3rd party league website URL" name="revenue_url" />
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Suggested Ticket Price<br/><span style="font-size: 10px;">In US Dollars</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input class="SignInInputText" type="text" name="suggested_price" id="suggested_price" maxlength="64" style="width: 50px;" value="0" />
+										<div style="display: inline-block; padding-left: 10px;">
+											<input style="vertical-align: middle;" type="checkbox" name="free_league" id="free_league" value="1" onclick="toggleTicketPrice(this);" /> <label for="free_league">Tournament is free to spectate</label>
+										</div>
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Base Prize Pool <span class="req">*</span><br /><span style="font-size: 10px;">In US Dollars</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input class="SignInInputText SmallInputBox" type="text" name="base_prize_pool" maxlength="64" style="width: 50px;" value="0" />
+									</div>
+								</div>
+								<div class="createAccountFormRow" id="prize_pool_contribution_2">
+									<div class="createAccountFormLabel">
+										Ticket Sale Prize Pool Contribution
+									</div>
+									<div class="createAccountFormInput">
+										<input type="radio" name="prize_pool_checkbox" value="2" id="prize_pool_radio_yes" onclick="togglePrizePool(0);" /> <label for="prize_pool_radio_yes">Yes</label><br />
+										<input type="radio" name="prize_pool_checkbox" value="1" id="prize_pool_radio_no" onclick="togglePrizePool(1);" checked /> <label for="prize_pool_radio_no">No</label>
+									</div>
+								</div>
+								<div class="createAccountFormRow" id="prize_pool_contribution" style="display: none;">
+									<div class="createAccountFormLabel">
+										Prize Pool Contribution Percentage <span class="req">*</span>
+									</div>
+									<div class="createAccountFormInput">
+										<input class="SignInInputText SmallInputBox" type="number" max="25" step="0.5" name="prize_pool_contribution" id="prize_pool_contribution_amount" maxlength="64" style="width: 50px;" value="10" /> % towards prize pool
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										Start Date
+									</div>
+									<div class="createAccountFormInput">
+										<input type="text" class="SignInInputText" id="start_date" style="width: 150px;" name="start_date" value="2015-08-29" />
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										End Date
+									</div>
+									<div class="createAccountFormInput">
+										<input type="text" class="SignInInputText" id="end_date" style="width: 150px;" name="end_date" value="2015-09-05" />
+									</div>
+								</div>
+								<div class="createAccountFormRow">
+									<div class="createAccountFormLabel">
+										&nbsp;
+									</div>
+									<div class="createAccountFormInput">
+										<input name="sumbitLeague" value="Save" class="SignInInputButton" type="submit" />
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="footerBox">
+			<div class="footerBoxLogo">
+				<a href="http://www.valvesoftware.com/" target="_blank"><span>Valve Corporation</span></a>
+			</div>
+			<div class="footerBoxLegal">
+				&copy; Valve Corporation, all rights reserved. Valve, the Valve logo, Steam, the Steam logo, Dota and the Dota logo are trademarks and/or registered trademarks of Valve Corporation.
+			</div>
+		</div>
+    </body>
+</html>

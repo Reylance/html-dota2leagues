@@ -1,0 +1,131 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+html, body { height: 100%; }
+body { background: url(../images/pageBackground.jpg) center top #090909 no-repeat; background-attachment: fixed; padding: 0; margin: 0; color: #FFF; font-family: Tahoma; font-weight: normal; font-size: 12px; }
+img { border: 0; }
+a { text-decoration: none; outline: none; }
+p { padding: 0; margin: 0; }
+input { outline: 0; }
+fieldset { border: 1px solid #444e52; padding: 20px; color: #f1f1f1; font-size: 12px; font-family: "Open Sans"; font-weight: 400; box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.6); }
+fieldset img { max-width: 500px; }
+legend { background: #212628; border: 1px solid #444e52; color: #c5c5c5; font-size: 14px; font-family: "Open Sans"; font-weight: 400; box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.4); padding: 8px 10px 8px 10px; }
+
+.CSSAuthor { background: url(../images/codeByXen.png) no-repeat; }
+
+.clear { clear: both; }
+.req { color: #DB6464 }
+
+.websiteContent { width: 920px; color: #FFF; margin: 0 auto; padding-top: 103px; }
+
+.contentBox { width: auto; line-height: 19px; background: rgba(5, 6, 6, 0.7); border: 1px solid #303030; font-size: 13px; font-family: "Open Sans"; font-weight: normal; color: #d2d2d2; }
+.contentBox h2 { width: auto; font-size: 20px; padding-top: 10px; padding-bottom: 10px; font-weight: normal; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.contentBox p, .contentBoxShort p { padding-top: 5px; padding-bottom: 5px; }
+.contentBoxLeft { width: 610px; float: left; }
+.contentBoxRight { width: 300px; float: right; }
+.contentBoxHalf { width: 298px; line-height: 19px; background: rgba(5, 6, 6, 0.7); border: 1px solid #303030; font-size: 13px; font-family: "Open Sans"; font-weight: normal; color: #d2d2d2; float: left; }
+.contentBoxShort { width: 610px; }
+.contentBoxSingle { width: 300px; }
+.contentBoxFull { width: 920px; }
+
+.pageTitle h1 { width: auto; line-height: 50px; height: 50px; background: #111212; border-bottom: 1px solid #222222; margin: 0; padding: 0; padding-left: 15px; padding-right: 15px; text-transform: uppercase; font-size: 18px; font-family: "Open Sans"; font-weight: normal; color: #FFF; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pageTitle h1 span { width: 140px; color: #454545; font-size: 11px; text-align: right; display: block; position: relative; bottom: 50px; left: 128px; }
+.pageTitle h1 a { color: #FFF; }
+.pageTitle h1 a:hover { color: #bd4538; }
+.pageContent { width: auto; padding: 30px 160px 35px 160px; text-align: center; color: #D8E6EB; box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 1); text-shadow: 0px 0px 5px rgba(0, 0, 0, 1); }
+.pageContent h2 { text-transform: uppercase; }
+.pageContent p { margin-bottom: 30px; }
+.pageContent a { color: #FFF; }
+.pageContent a:hover { color: #bd4538; }
+.pageContentHome { width: auto; background: url(../images/contentBackground.jpg) #000 center bottom no-repeat; padding: 30px 160px 35px 160px; text-align: center; color: #D8E6EB; box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 1); text-shadow: 0px 0px 5px rgba(0, 0, 0, 1); }
+.pageContentHome h2 { text-transform: uppercase; }
+.pageContentHome p { margin-bottom: 30px; }
+.pageContentHome a { color: #FFF; }
+.pageContentHome a:hover { color: #bd4538; }
+
+.userAvatar { margin-bottom: 20px; }
+.userAvatar img { width: 64px; height: 64px; background: #000; padding: 1px; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 1); }
+.userAvatar img.online { border: 2px solid #53A4C4; }
+.userAvatar img.offline { border: 2px solid #6A6A6A; }
+
+.contentBoxTabs { width: 920px; height: 40px; font-size: 14px; font-family: "Open Sans"; font-weight: 400; color: #FFF; text-transform: uppercase; }
+.contentBoxTabs a { width: auto; height: 40px; line-height: 38px; padding: 0px 15px 0px 15px; color: #a7aeb0; background: #222222; display: inline-block; margin: 0px 3px 0px 0px; }
+.contentBoxTabs a:hover { color: #b4babc; }
+.contentBoxTabs a.active { width: auto; height: 40px; line-height: 38px; padding: 0px 15px 0px 15px; color: #b4babc; background: #303030; display: inline-block; margin: 0px 3px 0px 0px; }
+
+.signInBox { margin-top: 40px; }
+.signInBox a { font-size: 14px; font-family: "Open Sans"; font-weight: 400; text-transform: uppercase; width: 230px; border: none; padding: 15px; display: inline-block; color: #FFF; background: #a4d007; background: -moz-linear-gradient(top,#a4d007 5%,#536904 95%); background: -webkit-gradient(linear,left top,left bottom,color-stop(5%,#a4d007),color-stop(95%,#536904)); background: -webkit-linear-gradient(top,#a4d007 5%,#536904 95%); background: -o-linear-gradient(top,#a4d007 5%,#536904 95%); background: -ms-linear-gradient(top,#a4d007 5%,#536904 95%); background: linear-gradient(to bottom,#a4d007 5%,#536904 95%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a4d007",endColorstr="#536904",GradientType=0); text-shadow: 1px 1px 0px rgba(28,35,2,0.6); border-radius: 2px; }
+.signInBox a:hover { color: #FFF; background: #a4d007; background: -moz-linear-gradient(top,#a4d007 5%,#597005 95%); background: -webkit-gradient(linear,left top,left bottom,color-stop(5%,#a4d007),color-stop(95%,#597005)); background: -webkit-linear-gradient(top,#a4d007 5%,#597005 95%); background: -o-linear-gradient(top,#a4d007 5%,#597005 95%); background: -ms-linear-gradient(top,#a4d007 5%,#597005 95%); background: linear-gradient(to bottom,#a4d007 5%,#597005 95%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a4d007",endColorstr="#597005",GradientType=0); }
+
+.createAccountForm { width: 598px; display: table; border-spacing: 0px 30px; }
+.createAccountFormRow { display: table-row; }
+.createAccountFormLabel { width: 200px; vertical-align: middle; display: table-cell; font-size: 11px; text-align: right; padding-right: 20px; }
+.createAccountFormInput { vertical-align: middle; display: table-cell; text-align: left; }
+input.SignInInputText, textarea.createAccountTextArea, select.selectInput { margin: 0; padding: 0; width: 319px; max-width: 319px; background: #212628; border: 1px solid #444e52; color: #c5c5c5; box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.4); padding: 10px; line-height: 16px; font-weight: normal; font-size: 12px; font-family: Verdana; resize: none; }
+input.SignInInputText:active, textarea.createAccountTextArea:active, select.selectInput:active, input.SignInInputText:focus, textarea.createAccountTextArea:focus, select.selectInput:focus { background: #212628; border: 1px solid #67767c; color: #f1f1f1; box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.6); }
+input.SignInInputButton { font-size: 18px; font-family: "Open Sans"; font-weight: 400; text-transform: uppercase; width: 341px; border: 0px; padding: 15px; color: #FFF; background: rgba(33,101,138,1); background: -webkit-gradient(linear,left top,left bottom,color-stop(5%,rgba(33,101,138,1)),color-stop(95%,rgba(21,60,82,1))); background: -moz-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(21,60,82,1) 95%); background: -webkit-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(21,60,82,1) 95%); background: -o-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(21,60,82,1) 95%); background: -ms-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(21,60,82,1) 95%); background: linear-gradient(to bottom,rgba(33,101,138,1) 5%,rgba(21,60,82,1) 95%); text-shadow: 1px 1px 0px rgba(2,21,35,0.6); }
+input:hover.SignInInputButton, input:active.SignInInputButton { color: #FFF; background: rgba(33,101,138,1); background: -webkit-gradient(linear,left top,left bottom,color-stop(5%,rgba(33,101,138,1)),color-stop(95%,rgba(23,67,92,1))); background: -moz-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(23,67,92,1) 95%); background: -webkit-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(23,67,92,1) 95%); background: -o-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(23,67,92,1) 95%); background: -ms-linear-gradient(top,rgba(33,101,138,1) 5%,rgba(23,67,92,1) 95%); background: linear-gradient(to bottom,rgba(33,101,138,1) 5%,rgba(23,67,92,1) 95%); border: 0px; }
+
+.topLine { width: 100%; height: 72px; top: 0; position: fixed; z-index: 1; border-bottom: 1px solid #303030; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 1); background: #1b1b1b; background: linear-gradient(#303030, #1b1b1b); background: -moz-linear-gradient(#303030, #1b1b1b); background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #303030),color-stop(100%, #1b1b1b)); background: -webkit-linear-gradient(#303030, #1b1b1b); }
+.navigationLineRight { width: 920px; height: 72px; line-height: 70px; margin: 0 auto; color: #a0a0a0; font-family: "Open Sans"; font-size: 12px; }
+.navigationLineRight a { color: #FFF; }
+
+.navigationLine { width: 920px; height: 72px; margin: 0 auto; }
+.navigationLineLogo { width: 180px; height: 72px; background: #1D1D1D; box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2); margin-right: 20px; float: left; }
+.navigationLineLogo:hover { box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.5); }
+.navigationLineLogo a { background: url(../images/siteLogo2.png) center center no-repeat; width: 180px; height: 72px; display: block; }
+.navigationLineLogo a span { display: none; }
+.navigationLineDescLeft { width: 480px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; float: left; }
+.navigationLineDescLeft a { color: #FFF; }
+.navigationLineDescLeft a:hover { color: #d4786e; }
+.navigationLineDescRight { width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; float: right; text-align: right; }
+.navigationLineDescRight .accountName { width: 140px; margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; float: left; }
+
+ul.userNavigation { list-style: none; margin: 0; padding: 0; float: left; }
+ul.userNavigation li { text-align: center; float: left; }
+ul.userNavigation a { display: block; }
+ul.userNavigation a.settings { background: url(../images/navigationIconSettings.png) center center no-repeat; width: 45px; height: 72px; }
+ul.userNavigation a.logout { background: url(../images/navigationIconLogout.png) center center no-repeat; width: 45px; height: 72px; }
+
+.footerBox { width: 900px; margin: 0 auto; padding: 30px; margin-bottom: 30px; color: #FFF; font-size: 12px; font-family: "Open Sans"; text-transform: uppercase; text-align: center; }
+.footerBox a { color: #FFF; }
+.footerBoxLogo { width: 110px; height: 36px; margin-right: 10px; float: left; }
+.footerBoxLogo a { width: 110px; height: 36px; background: url(../images/logo_valve.png) center center no-repeat; display: block; }
+.footerBoxLogo a span { display: none; }
+.footerBoxLegal { width: 780px; height: 36px; padding-top: 2px; text-align: left; line-height: 16px; float: left; }
+
+.HomeContentLeaguesSingleBox { width: 565px; margin: 10px 0px 10px 0px; padding: 15px; background: #212628; text-align: left; border: 1px solid #444e52; color: #c5c5c5; box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.4); }
+.HomeContentLeaguesSingleBoxLeft { width: 500px; float: left; }
+.HomeContentLeaguesSingleBoxLeft a { width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 18px; font-weight: 400; color: #FFF; padding-bottom: 5px; display: block; }
+.HomeContentLeaguesSingleBoxRight { width: 58px; height: 62px; float: right; }
+.HomeContentLeaguesSingleBoxRight.waiting { width: 58px; height: 62px; background: url(../images/leagueStatusWaiting.png) center center no-repeat; }
+.HomeContentLeaguesSingleBoxRight.accepted { width: 58px; height: 62px; background: url(../images/leagueStatusAccepted.png) center center no-repeat; }
+.HomeContentLeaguesSingleBoxRight.rejected { width: 58px; height: 62px; background: url(../images/leagueStatusRejected.png) center center no-repeat; }
+
+.HomeContentLeaguesSingleBoxAvatar { width: 62px; margin-right: 15px; float: left; }
+.HomeContentLeaguesSingleBoxAvatar img { width: 60px; height: 60px; background: #212628; border: 2px solid #67767c; display: block; }
+.HomeContentLeaguesSingleBoxAdmin { width: 485px; float: left; }
+.HomeContentLeaguesSingleBoxAdmin span { padding-left: 5px; padding-right: 5px; }
+.HomeContentLeaguesSingleBoxAdmin a.adminProfile { width: 485px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 18px; font-weight: 400; color: #FFF; padding-top: 10px; padding-bottom: 10px; display: block; }
+.HomeContentLeaguesSingleBoxAdmin a:hover.adminProfile { color: #bd4538; }
+.HomeContentLeaguesSingleBoxAdmin a.adminLink { color: #FFF; }
+.HomeContentLeaguesSingleBoxAdmin a:hover.adminLink { color: #bd4538; }
+
+.HomeContentLeaguesSingleBoxAdminAdd { padding-top: 20px; }
+
+.ticketImageButtons { margin-top: 15px; padding-top: 15px; text-transform: uppercase; border-top: 1px solid #444e52; }
+.separatorOr { display: block; padding: 15px 10px 15px 10px; font-weight: bold; font-size: 16px; color: #b8c1c4; }
+.separatorOr:before { content: "— "; color: #434d4f; }
+.separatorOr:after { content: " —"; color: #434d4f; }
+
+
+
+
+
+
+
